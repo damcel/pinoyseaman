@@ -1,4 +1,5 @@
-  <div class="side-content">
+<div class="side-content">
+
     <form action="seaman_login_verify.php" method="post" name="seaman" id="seaman" onsubmit="return validateForm_seaman()">
 
       <div class="employer">
@@ -122,4 +123,4 @@
       <img src="images/yourads.jpg" alt="">
     </a>
     
-  </div>
+</div>

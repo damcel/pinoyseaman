@@ -1,14 +1,9 @@
 <?php
-ob_start();
-session_start();
-
-include 'includes/dbh.inc.php';  
+include 'connect.php';
 include 'includes/header.php';
 include 'includes/nav.php';
 
-$successMessage = $_SESSION['successMessage'] ?? '';
-unset($_SESSION['successMessage']);
-
+$successMessage = '';
 $errorMessages = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -22,11 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email'] ?? '');
     $phone = trim($_POST['phone'] ?? '');
     $address = trim($_POST['address'] ?? '');
+    $password = trim($_POST['password'] ?? '');
 
     // Validation
-    if ($prefer_job === '') {
-        $errorMessages[] = "Job position is required.";
-    }
+    if ($prefer_job == '') $errorMessages[] = "Job position is required.";
     if ($first_name == '') $errorMessages[] = "First name is required.";
     if ($last_name == '') $errorMessages[] = "Last name is required.";
     if ($birthday == '') $errorMessages[] = "Date of birth is required.";
@@ -36,6 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($phone == '') $errorMessages[] = "Phone number is required.";
     if (!preg_match("/^\d{11}$/", $phone)) $errorMessages[] = "Phone number must be 11 digits.";
     if ($address == '') $errorMessages[] = "Address is required.";
+    if ($password == '') $errorMessages[] = "Password is required.";
+    if (strlen($password) < 6) $errorMessages[] = "Password must be at least 6 characters.";
 
     // Check if email already exists
     if (empty($errorMessages)) {
@@ -51,14 +47,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Insert into database
+    // Insert into DB
     if (empty($errorMessages)) {
         try {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("
                 INSERT INTO job_seeker 
-                (prefer_job, first_name, middle_name, last_name, birthday, gender, email, phone, address, date) 
+                (prefer_job, first_name, middle_name, last_name, birthday, gender, email, phone, address, password, date) 
                 VALUES 
-                (:prefer_job, :first_name, :middle_name, :last_name, :birthday, :gender, :email, :phone, :address, NOW())
+                (:prefer_job, :first_name, :middle_name, :last_name, :birthday, :gender, :email, :phone, :address, :password, NOW())
             ");
             $stmt->execute([
                 ':prefer_job' => $prefer_job,
@@ -69,12 +66,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ':gender' => $gender,
                 ':email' => $email,
                 ':phone' => $phone,
-                ':address' => $address
+                ':address' => $address,
+                ':password' => $hashedPassword
             ]);
-
-            $_SESSION['successMessage'] = "Data has been successfully inserted into job_seeker!";
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit();
+            $successMessage = "Registration successful!";
         } catch (PDOException $e) {
             error_log("Database insert error: " . $e->getMessage());
             $errorMessages[] = "Something went wrong. Please try again later.";
@@ -83,49 +78,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <body>
-    <?php if (!empty($errorMessages)): ?>
-        <div id="errorPopup" class="popup-overlay">
-            <div class="popup-content">
-                <span class="popup-close" onclick="closePopup('errorPopup')">&times;</span>
-                <h2>Error</h2>
-                <p id="errorMessage"><?= implode("<br>", array_map('htmlspecialchars', $errorMessages)); ?></p>
-                <button onclick="closePopup('errorPopup')">Close</button>
-            </div>
-        </div>
-    <?php elseif (!empty($successMessage)): ?>
-        <div id="successPopup" class="popup-overlay">
-            <div class="popup-content">
-                <span class="popup-close" onclick="closePopup('successPopup')">&times;</span>
-                <h2>Success</h2>
-                <p><?= htmlspecialchars($successMessage) ?></p>
-                <button onclick="closePopup('successPopup')">Close</button>
-            </div>
-        </div>
-    <?php endif; ?>
-
   <div class="main-content">
     <div class="company-content">
 
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+        <?php if (!empty($successMessage)): ?>
+            <div class="success"><?= htmlspecialchars($successMessage) ?></div>
+        <?php endif; ?>
+
+        <?php foreach ($errorMessages as $error): ?>
+            <div class="error"><?= htmlspecialchars($error) ?></div>
+        <?php endforeach; ?>
+
+        <form action="register.php" method="POST">
             <div class="form-container">
                 <h3 class="index-form">Quick registration</h3>
 
                 <div class="form-group-container">
-                    <label for="prefer_job">Desired Job Position</label>
-                    <select name="prefer_job" id="prefer_job" class="js-job-select" style="width: 100%;">
-                        <option value="">Select or type a position</option>
-                        <?php
-                        try {
-                            $stmt = $pdo->query("SELECT DISTINCT prefer_job FROM job_seeker WHERE prefer_job IS NOT NULL AND prefer_job != '' ORDER BY prefer_job ASC");
-                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                $job = htmlspecialchars($row['prefer_job']);
-                                echo "<option value=\"$job\">$job</option>";
-                            }
-                        } catch (PDOException $e) {
-                            error_log("Error loading job options: " . $e->getMessage());
-                        }
-                        ?>
-                    </select>
+                <select name="prefer_job">
+                    <option value="">Select your desired Job Position:</option>
+                    <option value="Deck Officer">Deck Officer</option>
+                    <option value="Engine Officer">Engine Officer</option>
+                    <!-- Add more options here -->
+                </select>
                 </div>
 
                 <div class="form-row">
@@ -171,8 +145,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" name="address" placeholder="Dian street, Makati City.">
                 </div>
 
+                <div class="form-group-container">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password">
+                </div>
+
                 <div class="form-group-container form-btn">
-                <button class="btn-register" type="submit">Quick Apply</button>
+                <button class="btn-register" type="submit">Register</button>
                 </div>
             </div>
         </form>
@@ -181,14 +160,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'includes/aside.php' ?>
   </div>
 </body>
-<script src="js/popup.js"></script>
-<script>
-$(document).ready(function() {
-  $('.js-job-select').select2({
-    placeholder: "Select or type a position",
-    tags: true,
-    allowClear: true
-  });
-});
-</script>
 <?php include 'includes/footer.php' ?>

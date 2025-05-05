@@ -3,212 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
-    <title>pinoyseaman remake</title>
+    <title>Signup Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .hidden {
+            display: none;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .toggle-middlename {
+            color: blue;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+    </style>
 </head>
 <body>
-            <nav>
-                <img src="images/logo.jpg" alt="" class="logo">
-    
-                <ul>
-                    <li><a href="index.html">Home</a> |</li>
-                    <li><a href="job_search.html">Job Search</a> |</li>
-                    <li><a href="#">Register as EMPLOYER</a> |</li>
-                    <li><a href="#">Register as Seanan</a> |</li>
-                    <li><a href="#">Company List</a> |</li>
-                    <li><a href="#">FAQ</a> |</li>
-                    <li><a href="#">Contact Us</a> </li>
-            </nav>  
-
-        <!-- under menu-nav banner  -->
-            <div class="banner-container">
-
-                <div class="first-banner">
-                    <img src="banner_rotate/marsa.jpg" alt="">
-                </div>
-            <!-- two banner-->
-                <div class="second-banner">
-                    <img src="ads/yourads2.jpg" alt="">
-                </div>
-            </div>
-
-
-    <!-- banner and nav section end here-->
-    
-
-    <!-- companies/hiring & register signin -->
-        <div class="main-content">
-
-<!-------------- company main content divider  ------------>
-                <div class="company-content">
-                    
-                    <div class="company-header-container">
-                        <strong>Registered Manning Agency</strong>
-                    </div>
-                    <div class="hiring-container">
-                        <div class="hiring-content">
-                            <strong> Register</strong>
-                            <p>By registering a pinoyseaman account, you can enjoy the following member benefits. <br>
-                            - Create online resume <br>
-                            - Apply on the Job posted by the companies<br>
-                            - post comments on the message board
-                            </p>
-
-                            <strong>How to Register </strong>
-                            <p>visit seaman registration page <span><a href="add_seaman.php">(click here)</a></span><br>
-                            - fill up the form correctly, all fields marked with <span class="red">*</span> are required<br>
-                            - enter a valid email address<br>
-                            - if successfull registration, check your email for your auto-generated password.<br> 
-                            Check on both INBOX and SPAM folder</p>
-
-                            <strong>I didn't receive my password after i register, what will i do?</strong>
-                            <p>You can retrieve your password by visiting the FORGOT PASSWORD page <span><a href="seaman_help.php"> (click here)</a></span></p>
-
-                            <strong>I am registered as SEAMAN and I forgot my password, how do i retrieve it?</strong>
-                            <p>You can retrieve your password by visiting the FORGOT PASSWORD page <span><a href="seaman_help.php"> (click here)</a></span><br>
-                            Fill up the form and your Auto Generated Password will be forwarded to your email.
-                            <br><br>
-                            or you may send email to admin@pinoyseaman.com and provide the following details (Full Name, birthday, email, address)</p>
-                            
-                            <strong>Is there any FEE for seaman registration?</strong>
-                            <p>There are no charges for all seamen who are interested to register. All you have to do is fill out the registration form in our website. 
-                            You must have a valid email address where your pinoyseaman login password can be sent to. 
-                            You will need this password for access to apply on the different job offerings posted in our website.
-                            <br><br>
-                            note : your profile will be forwarded to the company when applying to the jobs posted on this website.</p>
-
-                            <strong>Can i update my Profile, Email and Password?</strong>
-                            <p>You can retrieve your password by visiting the FORGOT PASSWORD page <span><a href="seaman_login.php"> (click here)</a></span></p>
-                            
-                            <strong>My PROFILE is not updated after i hit the update button, what will i do?</strong>
-                            <p>maybe your browser's cookie functionality is turned off or disabled. You may enable your browser cookies or use other browser.</p>
-                        </div>
-
-                    </div>
-        
-                </div>
-                
-
-
-<!-------------- Below code is for side content  ----------->
-        <form action="" method="post">
-                <div class="side-content">
-
-                    <div class="employer">
-                        <!--container seaman and employer log in-->
-                        <div class="category">
-                            <strong>Employer Login</strong>
-
-                                    <div class="input-fields">
-                                        <label>Employer ID: </label><br>
-                                        <input type="text"><br>
-                                        <label>Password: </label> <br>
-                                        <input type="password"> <br>
-                                        <input type="submit" value="login" name="submit"> <br>
-                                        <a href="#">Forgot Employer ID/Password?</a> <br>
-                                        <a href="#">Register Now</a>
-                                    </div>
-                        </div>
-                        
-                    </div>
-                
-                    <div class="employer">
-                        <!--container seaman and employer log in-->
-                        <div class="category">
-                            <strong>Seaman Login</strong>
-                                    <div class="input-fields">
-                                        <label>Email: </label> <br> 
-                                        <input type="text"><br>
-                                        <label>Password: </label><br>
-                                        <input type="password"> <br>
-                                        <input type="submit" value="login" name="submit"> <br>
-                                        <a href="#">Forgot your Password?</a> <br>
-                                        <a href="#">Register Now</a>
-                                    </div>
-                        </div>
-                    </div>
-        
-                    <div class="database">
-                        <!--container database record-->
-                        <div class="category">
-                            <strong>Database Records</strong><br> 
-                                <div class="data-record">
-                                    <strong><a href="#">Registered Seaman :</a></strong> 128574
-                                    <strong><a href="#">Registered Company: </a></strong> 224 <br>
-                                    <strong><a href="#">Job Posted: </a></strong> <span>1304
-                                </div>
-                        </div>
-
-                    </div>
-
-                    <div class="database">
-                        <!--container new seaman member -->
-                        <div class="category">
-                            <strong>Newest Seaman member</strong> <br>
-                                <div class="data-record">
-                                    <strong class="database-strong">Name: </strong> <br>
-                                    <strong class="database-strong">Position: </strong> <br>
-                                    <strong class="database-strong">Date Registered: </strong>
-                                </div>
-                        </div>
-                    </div>
-
-                    <div class="random-images">
-                        <!--container random images-->
-                        <div class="random-category">
-                            <strong>Random Images</strong>
-                            <div class="image-container">
-                                <img src="seaman_pics/10.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-
-
-                            <div class="submit-photo">
-                                <a href="">Submit a photo</a>
-                            </div>
-        </form>
-
-                        <div class="advertisement">
-                            <strong>Advertisement</strong>
-                        </div>
-
-                    <div class="ads-container">
-                            <img src="images/yourads.jpg" alt="">
-
-                    </div>
-
-                    <div class="ads-container">
-                            <img src="images/yourads.jpg" alt="">
-                    </div>
-
-                    <div class="ads-container">
-                            <img src="images/yourads.jpg" alt="">
-                    </div>
-                    
-                    
-                </div>
-
-            </div>
-    <!-- companies/hiring & register signin -->
-
-    <!-- Footer section -->
-    <footer class="footer">
-        <strong>Trabahong seaman, isang click na lang!</strong>
-        <div class="footer-nav">
-            <ul>
-                <li><a href="#">Home</a> |</li>
-                <li><a href="#">Company List</a> |</li>
-                <li><a href="#">FAQ</a> |</li>
-                <li><a href="#">Submit Resume</a> |</li>
-                <li><a href="#">Contact Us</a> |</li>
-                <li><a href="#">Advertise</a> |</li>
-                <li><a href="#">Terms and Conditions</a> |</li>
-            </ul>
+    <form>
+        <div class="form-group">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" required>
+            <span class="toggle-middlename" onclick="toggleMiddleName()">Middle Name +</span>
         </div>
-        <p>Email: info@pinoyseaman.com</p>
-        <p>&copy; Copyright 2024 PinoySeaman.com</p>
-    </footer>
+        <div class="form-group hidden" id="middlename-group">
+            <label for="middlename">Middle Name:</label>
+            <input type="text" id="middlename" name="middlename">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="job">Job Position:</label>
+            <input type="text" id="job" name="job" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Sign Up</button>
+    </form>
 
+    <script>
+        function toggleMiddleName() {
+            var middleNameGroup = document.getElementById('middlename-group');
+            if (middleNameGroup.classList.contains('hidden')) {
+                middleNameGroup.classList.remove('hidden');
+            } else {
+                middleNameGroup.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html>
